@@ -62,7 +62,7 @@
 
 4. Cart
 - uid
-- items: list<{iid, quantity}>
+- items: dict<iid, {immediate_price, quantity}>
 
 5. Order
 - oid
@@ -70,3 +70,4 @@
 - items<CartItem>
 - payment_method
 - address
+- order_time
