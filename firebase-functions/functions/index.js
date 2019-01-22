@@ -58,24 +58,26 @@ exports.addItem = functions.https.onCall((data, context) => {
     console.log('color ' + color);
     console.log('size ' + size);
 
-    return admin.database().ref('/items').push({iid: iid, sid: sid, name: name, description: description, category: category, price: price, quantity: quantity, variation: {color: color, size: size}}).then(() => {
+    return admin.database().ref('/items').child(iid).set({iid: iid, sid: sid, name: name, description: description, category: category, price: price, quantity: quantity, variation: {color: color, size: size}}).then(() => {
         return {iid: iid};
     });
 });
 
 exports.addCart = functions.https.onCall((data, context) => {
     const uid = data.uid;
-    const iid = data.iid;
     const quantity = data.quantity;
-    const cid = (new Date()).getTime().toString();
+    let variation = data.variation;
+    if (variation === null) {
+        variation = 'none';
+    }
+    const iid = data.iid;
 
-    console.log('uid ' + uid);
-    console.log('iid ' + iid)
-    console.log('quantity ' + quantity);
-    console.log('cid ' + cid);
+    console.log('addCart: uid = %s, iid = %s, variation = %s, quantity = %s', uid, iid, variation, quantity);
 
-    return admin.database().ref('/carts').push({cid: cid, uid: uid, iid: iid, quantity: quantity}).then(() => {
-        return {cid: cid};
+    return admin.database().ref('/carts').child(uid).child(iid).child(variation).child('quantity').set(quantity).then(() => {
+        return true;
+    }).catch((error) => {
+        return false;
     });
 });
 

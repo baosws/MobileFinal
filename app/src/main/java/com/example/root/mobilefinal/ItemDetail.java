@@ -128,12 +128,20 @@ public class ItemDetail extends AppCompatActivity implements View.OnClickListene
     }
 
     public void addCartAction(){
+        if (chosenQuantity.getNumber().equals("0")) {
+            return;
+        }
+
         Backend.addCartItem(thisItem.iid, chosenQuantity.getNumber(), new Backend.Callback<Boolean>() {
             @Override
             public void call(Boolean check) {
                 if (check == true){
                     AddCartDialog addCartDialog = new AddCartDialog(textView_itemName.getText().toString(), textView_price.getText().toString());
                     addCartDialog.show(getSupportFragmentManager(), "Dialog");
+                    Log.d("btag/ItemDetail", "addCartAction ok");
+                }
+                else {
+                    Log.d("btag/ItemDetail", "addCartAction not ok");
                 }
             }
         });

@@ -28,6 +28,7 @@ public class CardItemHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(final CartItem cartItem) {
+        // TODO
         Backend.getItem(cartItem.iid, new Backend.Callback<Item>() {
             @Override
             public void call(Item data) {

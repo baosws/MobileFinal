@@ -15,7 +15,7 @@ import java.util.Map;
 public class CardItemAdapter extends RecyclerView.Adapter {
     List<CartItem> cartItemList;
     Context context;
-    Backend.Callback onCartItemChangedCallback;
+    Backend.Callback<Integer> onCartItemChangedCallback;
 
     public CardItemAdapter(Context context, List<CartItem> cartItemList, Backend.Callback<Integer> onCartItemChangedCallback) {
         this.context = context;
@@ -31,17 +31,19 @@ public class CardItemAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        // TODO
         CardItemHolder cardItemHolder = (CardItemHolder) holder;
         cardItemHolder.bind(cartItemList.get(position));
         onCartItemChangedCallback.call(position);
         cardItemHolder.quantityNumber.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
             @Override
             public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
-                Backend.updateCartItemQuantity(cartItemList.get(position).cid, String.valueOf(newValue), new Backend.Callback<Long>() {
+                cartItemList.get(position).quantity = String.valueOf(newValue);
+                Backend.updateCartItemQuantity(cartItemList.get(position).iid, cartItemList.get(position).variation, String.valueOf(newValue), new Backend.Callback<Long>() {
                     @Override
                     public void call(Long data) {
-                        cartItemList.get(position).quantity = data.toString();
-                        if (data == 0l) {
+                        if (data != -1L) cartItemList.get(position).quantity = data.toString();
+                        if (data == 0L) {
                             cartItemList.remove(position);
                             notifyDataSetChanged();
                         }
@@ -54,7 +56,7 @@ public class CardItemAdapter extends RecyclerView.Adapter {
         cardItemHolder.imageView_deleteCartItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Backend.removeCartItem(cartItemList.get(position).cid, new Backend.Callback<Boolean>() {
+                Backend.removeCartItem(cartItemList.get(position).iid, cartItemList.get(position).variation, new Backend.Callback<Boolean>() {
                     @Override
                     public void call(Boolean data) {
                         cartItemList.remove(position);
