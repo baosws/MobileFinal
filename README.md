@@ -1,22 +1,23 @@
 # Tính Năng Chính 
 - [x] Login/Sign up
 - [x] Tạo một shop của chính mình.
-- [ ] Chỉnh sửa thông tin của một shop/ chỉnh sửa thông tin của một sản phẩm
+- [x] Chỉnh sửa thông tin của một shop/ chỉnh sửa thông tin của một sản phẩm
 - Thông tin một shop:
   - [x] Ảnh đại diện của shop
   - [x] Tên shop 
   - [x] Giờ đóng cửa/mở cửa
   - [x] Địa chỉ
-  - [ ] Địa điểm (location)
+  - [x] Địa điểm (location)
   - [x] Danh sách các sản phẩm: tên, hình ảnh, giá
 
-* [ ] Tìm kiếm shop, sản phẩm:
-  * [ ] Tìm kiếm cơ bản: text
+* [x] Tìm kiếm shop, sản phẩm:
+  * [x] Tìm kiếm cơ bản: text
   * [ ] Tìm kiếm bằng hình ảnh
 
 - [ ] Chọn một item vào danh sách yêu thích 
-- [ ] Chỉ đường đến shop
-- [ ] Chọn mua, là có thông báo đến chủ shop đó
+- [x] Chỉ đường đến shop
+- [x] Chọn mua
+- [ ] Thông báo tới chủ shop khi có người đặt mua đó
 - [ ] Chat giữa người mua và chủ shop (nếu muốn =]] )
 - [ ] Shopping planner: lên kế hoạch đi shopping (Để sau)
 # Các màn hình chính:
